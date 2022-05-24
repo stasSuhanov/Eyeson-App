@@ -1,17 +1,7 @@
 package com.example.eyesonapp
 
 import android.app.Application
-import android.content.Context
+import dagger.hilt.android.HiltAndroidApp
 
-class App : Application() {
-
-    val appComponent = DaggerApplicationComponent.create()
-}
-
-fun Context.getAppComponent(): ApplicationComponent {
-    return if (this is App) {
-        this.appComponent
-    } else {
-        this.applicationContext.getAppComponent()
-    }
-}
+@HiltAndroidApp
+class App : Application()
