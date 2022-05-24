@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
         onError: (Throwable) -> Unit = {}
     ) {
         this.subscribeOn(backgroundScheduler)
-            .subscribeOn(uiScheduler)
+            .observeOn(uiScheduler)
             .subscribe(onSuccess, onError)
             .addTo(compositeDisposable)
     }
