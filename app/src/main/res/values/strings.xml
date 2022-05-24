@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">EyesonApp</string>
+    <string name="create_room">Create room</string>
+    <string name="join_room">Join room</string>
+    <string name="description">Create or join a room!</string>
+    <string name="edit_text_hint">Enter a link to the room</string>
+    <string name="room_description">Your link to the room:</string>
 </resources>
