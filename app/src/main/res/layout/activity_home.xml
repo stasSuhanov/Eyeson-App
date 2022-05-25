@@ -12,6 +12,7 @@
         android:id="@+id/description"
         style="@style/TextStyle"
         android:layout_marginBottom="@dimen/layout_margin_20"
+        android:fontFamily="@font/rubik_light"
         android:text="@string/description"
         android:textSize="@dimen/text_size_30"
         app:layout_constraintBottom_toTopOf="@id/room_description"
@@ -22,6 +23,7 @@
         android:id="@+id/room_description"
         style="@style/TextStyle"
         android:layout_marginBottom="@dimen/layout_margin_20"
+        android:fontFamily="@font/rubik_light"
         android:text="@string/room_description"
         android:textSize="@dimen/text_size_20"
         app:layout_constraintBottom_toTopOf="@id/room_link"
@@ -33,6 +35,7 @@
         style="@style/TextStyle"
         android:layout_marginStart="@dimen/layout_margin_15"
         android:layout_marginEnd="@dimen/layout_margin_15"
+        android:fontFamily="@font/rubik_medium"
         android:hint="@string/link_hint"
         android:textSize="@dimen/text_size_13"
         android:textStyle="bold"
@@ -43,8 +46,7 @@
 
     <Button
         android:id="@+id/create_room_button"
-        android:layout_width="@dimen/button_size"
-        android:layout_height="wrap_content"
+        style="@style/ButtonStyle"
         android:text="@string/create_room"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/join_room_button"
@@ -53,8 +55,7 @@
 
     <Button
         android:id="@+id/join_room_button"
-        android:layout_width="@dimen/button_size"
-        android:layout_height="wrap_content"
+        style="@style/ButtonStyle"
         android:text="@string/join_room"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
