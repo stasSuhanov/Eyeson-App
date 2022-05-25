@@ -1,8 +1,10 @@
 package com.example.eyesonapp.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.eyesonapp.R
 import com.example.eyesonapp.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,5 +23,22 @@ class HomeActivity : AppCompatActivity() {
         binding.createRoomButton.setOnClickListener {
             viewModel.createMeetingRoom()
         }
+
+        binding.roomLink.setOnClickListener {
+            if (binding.roomLink.text.contains(BASE_URL)) {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, getString(R.string.room_invite, binding.roomLink.text))
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+            }
+        }
+    }
+
+    companion object {
+        private const val BASE_URL = "app.eyeson.team"
     }
 }

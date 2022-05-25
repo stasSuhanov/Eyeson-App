@@ -10,52 +10,32 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        style="@style/TextStyle"
+        android:layout_marginBottom="@dimen/layout_margin_20"
         android:text="@string/description"
-        android:textColor="@color/blackLight"
-        android:textSize="30sp"
+        android:textSize="@dimen/text_size_30"
+        app:layout_constraintBottom_toTopOf="@id/room_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/room_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="25dp"
+        style="@style/TextStyle"
+        android:layout_marginBottom="@dimen/layout_margin_20"
         android:text="@string/room_description"
-        android:textColor="@color/blackLight"
-        android:textSize="20sp"
-        android:visibility="gone"
+        android:textSize="@dimen/text_size_20"
+        app:layout_constraintBottom_toTopOf="@id/room_link"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/room_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:text="@string/room_description"
-        android:textColor="@color/blackLight"
-        android:textSize="13sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/room_description"
-        tools:text="https://app.eyeson.team/?guest=S2eFiNgi6ero6Snn9ncIEMJ9" />
-
-    <EditText
-        android:id="@+id/edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:hint="@string/edit_text_hint"
+        style="@style/TextStyle"
+        android:layout_marginStart="@dimen/layout_margin_15"
+        android:layout_marginEnd="@dimen/layout_margin_15"
+        android:hint="@string/link_hint"
+        android:textSize="@dimen/text_size_13"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,21 +43,21 @@
 
     <Button
         android:id="@+id/create_room_button"
-        android:layout_width="150dp"
+        android:layout_width="@dimen/button_size"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:text="@string/create_room"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/join_room_button"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_link" />
 
     <Button
         android:id="@+id/join_room_button"
-        android:layout_width="150dp"
+        android:layout_width="@dimen/button_size"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:text="@string/join_room"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/create_room_button" />
+        app:layout_constraintStart_toEndOf="@id/create_room_button"
+        app:layout_constraintTop_toBottomOf="@id/room_link" />
 </androidx.constraintlayout.widget.ConstraintLayout>

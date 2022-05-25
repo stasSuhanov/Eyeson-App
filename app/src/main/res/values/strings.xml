@@ -3,6 +3,7 @@
     <string name="create_room">Create room</string>
     <string name="join_room">Join room</string>
     <string name="description">Create or join a room!</string>
-    <string name="edit_text_hint">Enter a link to the room</string>
-    <string name="room_description">Your link to the room:</string>
+    <string name="link_hint">Click on create room to get the link</string>
+    <string name="room_description">Click on the link to invite friends</string>
+    <string name="room_invite">Join my meeting room: %s</string>
 </resources>
