@@ -25,16 +25,20 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.roomLink.setOnClickListener {
-            if (binding.roomLink.text.contains(BASE_URL)) {
-                val sendIntent: Intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, getString(R.string.room_invite, binding.roomLink.text))
-                    type = "text/plain"
-                }
+            sendInvite(binding.roomLink.text.toString())
+        }
+    }
 
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                startActivity(shareIntent)
+    private fun sendInvite(link: String) {
+        if (link.contains(BASE_URL)) {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.room_invite, link))
+                type = "text/plain"
             }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
     }
 
