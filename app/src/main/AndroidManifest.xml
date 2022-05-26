@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.eyesonapp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".App"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +26,16 @@
         </activity>
         <activity
             android:name=".ui.calls.CallsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="app.eyeson.team" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

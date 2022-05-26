@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">EyesonApp</string>
+
+    <!--HOME_SCREEN-->
+    <string name="home_screen_create_room">Create room</string>
+    <string name="home_screen_join_room">Join room</string>
+    <string name="home_screen_description">Create or join a room!</string>
+    <string name="home_screen_link_hint">Click on the link to invite friends</string>
+    <string name="home_screen_room_description">Click on create room to get the link</string>
+    <string name="home_screen_room_invite">Join my meeting room: %s</string>
 </resources>

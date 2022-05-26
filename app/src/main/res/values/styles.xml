@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextRegular">
+        <item name="android:fontFamily">@font/rubik_regular</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+    </style>
+
+    <style name="TextMedium">
+        <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="TextRegular.BlackLight">
+        <item name="android:textColor">@color/blackLight</item>
+    </style>
+
+    <style name="TextMedium.BlackLight">
+        <item name="android:textColor">@color/blackLight</item>
+    </style>
+
+    <style name="TextMedium.Blue">
+        <item name="android:textColor">@color/purple_200</item>
+    </style>
+
+    <style name="TextRegular.BlackLight.Header">
+        <item name="android:textSize">@dimen/text_size_30</item>
+    </style>
+
+    <style name="TextRegular.BlackLight.Medium">
+        <item name="android:textSize">@dimen/text_size_20</item>
+    </style>
+
+    <style name="TextMedium.Blue.Small">
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="TextMedium.ButtonStyle">
+        <item name="android:background">@drawable/rounded_corner</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_marginHorizontal">20dp</item>
+    </style>
+</resources>
