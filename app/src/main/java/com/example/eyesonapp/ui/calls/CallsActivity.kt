@@ -2,6 +2,7 @@ package com.example.eyesonapp.ui.calls
 
 import android.Manifest
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eyesonapp.ARG_ROOM_ACCESS_KEY
@@ -53,9 +54,12 @@ class CallsActivity : AppCompatActivity() {
             state ?: return@observe
             when (state) {
                 MeetingState.CREATED -> {
-                    // TODO: Implement
+                    binding.joiningCallGroup.visibility = View.VISIBLE
+                    binding.callGroup.visibility = View.INVISIBLE
                 }
                 MeetingState.JOINED -> {
+                    binding.joiningCallGroup.visibility = View.INVISIBLE
+                    binding.callGroup.visibility = View.VISIBLE
                     bindVideoViews()
                     viewModel.setTargets(binding.localVideo, binding.remoteVideo)
                 }
