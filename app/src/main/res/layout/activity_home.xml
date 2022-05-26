@@ -4,61 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    android:padding="20dp"
     tools:context=".ui.home.HomeActivity">
 
     <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextRegular.BlackLight.Header"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/layout_margin_20"
+        android:text="@string/home_screen_description"
+        app:layout_constraintBottom_toTopOf="@id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/description"
-        style="@style/TextStyle"
+        style="@style/TextRegular.BlackLight.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginBottom="@dimen/layout_margin_20"
-        android:fontFamily="@font/rubik_light"
-        android:text="@string/description"
-        android:textSize="@dimen/text_size_30"
-        app:layout_constraintBottom_toTopOf="@id/room_description"
+        android:text="@string/home_screen_room_description"
+        app:layout_constraintBottom_toTopOf="@id/room_link_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/room_description"
-        style="@style/TextStyle"
-        android:layout_marginBottom="@dimen/layout_margin_20"
-        android:fontFamily="@font/rubik_light"
-        android:text="@string/room_description"
-        android:textSize="@dimen/text_size_20"
-        app:layout_constraintBottom_toTopOf="@id/room_link"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/room_link"
-        style="@style/TextStyle"
-        android:layout_marginStart="@dimen/layout_margin_15"
-        android:layout_marginEnd="@dimen/layout_margin_15"
-        android:fontFamily="@font/rubik_medium"
-        android:hint="@string/link_hint"
-        android:textSize="@dimen/text_size_13"
-        android:textStyle="bold"
+        android:id="@+id/room_link_description"
+        style="@style/TextRegular.BlackLight.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/home_screen_link_hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/create_room_button"
-        style="@style/ButtonStyle"
-        android:text="@string/create_room"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/join_room_button"
+    <TextView
+        android:id="@+id/room_link"
+        style="@style/TextMedium.Blue.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/room_link" />
+        app:layout_constraintTop_toBottomOf="@id/room_link_description" />
 
     <Button
-        android:id="@+id/join_room_button"
-        style="@style/ButtonStyle"
-        android:text="@string/join_room"
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextMedium.ButtonStyle"
+        android:text="@string/home_screen_create_room"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/create_room_button"
-        app:layout_constraintTop_toBottomOf="@id/room_link" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_link_description" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toTopOf="@id/next_button"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/initial_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="description"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/progress_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="progress_bar"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/room_created_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="room_link_description,room_link"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

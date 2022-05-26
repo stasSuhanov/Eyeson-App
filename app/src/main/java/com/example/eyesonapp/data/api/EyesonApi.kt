@@ -1,11 +1,12 @@
 package com.example.eyesonapp.data.api
-import io.reactivex.rxjava3.core.Single
-import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+const val ENDPOINT_ROOMS = "/rooms"
+const val ARG_USERNAME = "user[name]"
+
 interface EyesonApi {
 
-    @POST("/rooms")
-    fun getLinks(@Header("Authorization") api_key: String, @Query("user[name]") user: String): Single<Room>
+    @POST(ENDPOINT_ROOMS)
+    suspend fun getLinks(@Query(ARG_USERNAME) user: String): RoomResponse
 }

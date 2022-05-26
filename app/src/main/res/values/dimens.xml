@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="button_size">150dp</dimen>
-    <dimen name="layout_margin_15">15dp</dimen>
     <dimen name="layout_margin_20">20dp</dimen>
-    <dimen name="text_size_13">13sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
     <dimen name="text_size_20">20sp</dimen>
     <dimen name="text_size_30">30sp</dimen>
 </resources>

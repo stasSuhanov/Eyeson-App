@@ -1,45 +1,70 @@
 package com.example.eyesonapp.ui.home
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.example.eyesonapp.AppDestination
+import com.example.eyesonapp.AppNavigator
 import com.example.eyesonapp.data.api.EyesonApi
-import com.example.eyesonapp.di.BackgroundScheduler
-import com.example.eyesonapp.di.UiScheduler
+import com.example.eyesonapp.data.api.RoomResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.kotlin.addTo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val api: EyesonApi,
-    @BackgroundScheduler private val backgroundScheduler: Scheduler,
-    @UiScheduler private val uiScheduler: Scheduler,
+    private val appNavigator: AppNavigator,
 ) : ViewModel() {
 
-    private val compositeDisposable by lazy { CompositeDisposable() }
+    val state: MutableLiveData<State> by lazy {
+        MutableLiveData<State>(State.Initial)
+    }
+
+    // Key to manage created room as host
+    private var roomAccessKey: String? = null
+
+    // Link to join the meeting as guest
+    private var guestInviteLink: String? = null
 
     fun createMeetingRoom() {
-        api.getLinks(API_KEY, USER).subscribeByDefault {
-            Log.d("JSON",it.toString())
-            //TODO
+        viewModelScope.launch(Dispatchers.IO) {
+            state.postValue(State.Progress)
+            var roomResponse: RoomResponse? = null
+            try {
+                roomResponse = api.getLinks(DEFAULT_USERNAME)
+            } catch (e: Exception) {
+                state.postValue(State.Initial)
+                withContext(Dispatchers.Main) {
+                    appNavigator.navigate(AppDestination.DefaultError)
+                }
+            }
+            roomAccessKey = roomResponse?.accessKey
+            roomResponse?.room?.guestToken?.let {
+                guestInviteLink = "https://app.eyeson.team/?guest=$it"
+                state.postValue(State.RoomCreated(guestInviteLink ?: ""))
+            }
         }
     }
 
-    private fun <T : Any> Single<T>.subscribeByDefault(
-        onSuccess: (T) -> Unit = {},
-        onError: (Throwable) -> Unit = {}
-    ) {
-        this.subscribeOn(backgroundScheduler)
-            .observeOn(uiScheduler)
-            .subscribe(onSuccess, onError)
-            .addTo(compositeDisposable)
+    fun sendInviteLink() {
+        appNavigator.navigate(AppDestination.InviteLink(guestInviteLink ?: ""))
     }
 
-    companion object {
-        private const val USER = "USER"
-        private const val API_KEY = "sJrzTXWYn4HhehFY4LHqBzYI2lo9esPTtniViv93Xc"
+    fun joinMeetingRoomAsHost() {
+        appNavigator.navigate(AppDestination.JoinRoomAsHost(roomAccessKey ?: ""))
+    }
+
+    fun onBackPressed() {
+        state.value = State.Initial
     }
 }
+
+sealed class State {
+    object Initial: State()
+    object Progress: State()
+    data class RoomCreated(val guestJoinLink: String): State()
+}
+
+private const val DEFAULT_USERNAME = "DEFAULT_USERNAME"

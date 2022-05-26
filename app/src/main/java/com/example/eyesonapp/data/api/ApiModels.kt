@@ -1,10 +1,14 @@
 package com.example.eyesonapp.data.api
 
-data class Room(
-    val links: Links
+import com.google.gson.annotations.SerializedName
+
+data class RoomResponse(
+    @SerializedName("access_key") val accessKey: String? = null,
+    @SerializedName("room") val room: Room? = null,
 )
 
-data class Links(
-    val gui: String,
-    val guest_join: String,
+data class Room(
+    @SerializedName("id") val id: String? = null,
+    @SerializedName("name") val name: String? = null,
+    @SerializedName("guest_token") val guestToken: String? = null,
 )

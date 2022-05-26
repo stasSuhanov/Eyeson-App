@@ -1,7 +1,7 @@
 package com.example.eyesonapp.ui.home
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eyesonapp.R
@@ -20,29 +20,51 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.createRoomButton.setOnClickListener {
-            viewModel.createMeetingRoom()
-        }
+        setClickListeners()
+        observeUiState()
+    }
 
-        binding.roomLink.setOnClickListener {
-            sendInvite(binding.roomLink.text.toString())
+    override fun onBackPressed() {
+        if (viewModel.state.value != State.Initial) {
+            viewModel.onBackPressed()
+        } else {
+            super.onBackPressed()
         }
     }
 
-    private fun sendInvite(link: String) {
-        if (link.contains(BASE_URL)) {
-            val sendIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, getString(R.string.room_invite, link))
-                type = "text/plain"
+    private fun setClickListeners() {
+        binding.roomLink.setOnClickListener { viewModel.sendInviteLink() }
+    }
+
+    private fun observeUiState() {
+        viewModel.state.observe(this) { applyUiState(it) }
+    }
+
+    private fun applyUiState(state: State) {
+        when (state) {
+            is State.Initial -> {
+                binding.initialGroup.visibility = View.VISIBLE
+                binding.progressGroup.visibility = View.INVISIBLE
+                binding.roomCreatedGroup.visibility = View.INVISIBLE
+
+                binding.nextButton.text = getString(R.string.home_screen_create_room)
+                binding.nextButton.setOnClickListener { viewModel.createMeetingRoom() }
             }
+            is State.Progress -> {
+                binding.initialGroup.visibility = View.INVISIBLE
+                binding.progressGroup.visibility = View.VISIBLE
+                binding.roomCreatedGroup.visibility = View.INVISIBLE
 
-            val shareIntent = Intent.createChooser(sendIntent, null)
-            startActivity(shareIntent)
+            }
+            is State.RoomCreated -> {
+                binding.initialGroup.visibility = View.INVISIBLE
+                binding.progressGroup.visibility = View.INVISIBLE
+                binding.roomCreatedGroup.visibility = View.VISIBLE
+
+                binding.nextButton.text = getString(R.string.home_screen_join_room)
+                binding.roomLink.text = state.guestJoinLink
+                binding.nextButton.setOnClickListener { viewModel.joinMeetingRoomAsHost() }
+            }
         }
-    }
-
-    companion object {
-        private const val BASE_URL = "app.eyeson.team"
     }
 }
