@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.eyesonapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:name=".App"
         android:icon="@mipmap/ic_launcher"
@@ -16,15 +21,18 @@
             android:name=".ui.home.HomeActivity"
             android:exported="true"
             android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".ui.calls.CallsActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.calls.CallsActivity"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
