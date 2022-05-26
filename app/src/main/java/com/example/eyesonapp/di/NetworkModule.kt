@@ -6,9 +6,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -18,9 +18,23 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideHttpClient(): OkHttpClient {
-        return OkHttpClient()
-            .newBuilder()
+    fun provideInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            chain.run {
+                proceed(request()
+                    .newBuilder()
+                    .addHeader(AUTHORIZATION_HEADER, BuildConfig.EYESON_API_KEY)
+                    .build()
+                )
+            }
+        }
+    }
+
+    @Singleton
+    @Provides
+    fun provideHttpClient(interceptor: Interceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addNetworkInterceptor(interceptor)
             .build()
     }
 
@@ -30,7 +44,6 @@ class NetworkModule {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.EYESON_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .client(httpClient)
             .build()
     }
@@ -41,3 +54,5 @@ class NetworkModule {
         return retrofit.create(EyesonApi::class.java)
     }
 }
+
+const val AUTHORIZATION_HEADER = "Authorization"

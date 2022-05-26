@@ -20,19 +20,27 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
-
-        </activity>
-        <activity
-            android:name=".ui.calls.CallsActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".ui.calls.CallsActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="app.eyeson.team" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>
