@@ -15,5 +15,9 @@
         <item name="android:statusBarColor">@color/blackLight</item>
         <item name="android:windowBackground">@color/blackLight</item>
         <item name="android:navigationBarColor">@color/blackLight</item>
+
+        <item name="android:windowLightNavigationBar">false</item>
+
+        <item name="defaultTextColor">@color/teal_200</item>
     </style>
 </resources>

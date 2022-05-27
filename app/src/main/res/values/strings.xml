@@ -8,4 +8,6 @@
     <string name="home_screen_link_hint">Click on the link to invite friends</string>
     <string name="home_screen_room_description">Click on create room to get the link</string>
     <string name="home_screen_room_invite">Join my meeting room: %s</string>
+    <!--CALLS_SCREEN-->
+    <string name="calls_screen_notice_text">Room is loading. Wait a little bit</string>
 </resources>

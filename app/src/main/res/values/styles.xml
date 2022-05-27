@@ -12,11 +12,11 @@
     </style>
 
     <style name="TextRegular.BlackLight">
-        <item name="android:textColor">@color/blackLight</item>
+        <item name="android:textColor">?defaultTextColor</item>
     </style>
 
     <style name="TextMedium.BlackLight">
-        <item name="android:textColor">@color/blackLight</item>
+        <item name="android:textColor">?defaultTextColor</item>
     </style>
 
     <style name="TextMedium.Blue">
@@ -39,5 +39,11 @@
         <item name="android:background">@drawable/rounded_corner</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:layout_marginHorizontal">20dp</item>
+    </style>
+
+    <style name="CallButtonStyle">
+        <item name="android:background">@drawable/circular_button</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
     </style>
 </resources>
