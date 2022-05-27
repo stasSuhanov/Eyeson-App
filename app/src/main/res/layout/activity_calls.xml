@@ -16,7 +16,7 @@
     <ImageButton
         android:id="@+id/mute_microphone_button"
         style="@style/CallButtonStyle"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/layout_margin_20"
         android:src="@drawable/ic_microphone_on"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/end_call_button" />
@@ -24,7 +24,7 @@
     <ImageButton
         android:id="@+id/end_call_button"
         style="@style/CallButtonStyle"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/layout_margin_20"
         android:background="@drawable/circular_red_button"
         android:src="@drawable/ic_call_end"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +34,7 @@
     <ImageButton
         android:id="@+id/camera_button"
         style="@style/CallButtonStyle"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/layout_margin_20"
         android:src="@drawable/ic_video_camera_on"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/end_call_button" />
@@ -43,7 +43,7 @@
         android:id="@+id/local_video"
         android:layout_width="100dp"
         android:layout_height="200dp"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/layout_margin_20"
         app:layout_constraintBottom_toTopOf="@+id/camera_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
