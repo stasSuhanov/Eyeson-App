@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.eyesonapp.ARG_ROOM_ACCESS_KEY
 import com.example.eyesonapp.R
 import com.example.eyesonapp.databinding.ActivityCallsBinding
+import com.example.eyesonapp.ui.calls.chat.ChatFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.webrtc.RendererCommon
 import org.webrtc.SurfaceViewRenderer
@@ -36,6 +37,13 @@ class CallsActivity : AppCompatActivity() {
 
     private fun setClickListeners() {
         binding.endCallButton.setOnClickListener { disconnect() }
+        binding.openChatButton.setOnClickListener { openChat() }
+    }
+
+    private fun openChat() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.place_holder, ChatFragment.newInstance())
+            .commit()
     }
 
     private fun requestCallPermissions() {

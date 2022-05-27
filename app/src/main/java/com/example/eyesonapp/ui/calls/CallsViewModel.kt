@@ -60,6 +60,10 @@ class CallsViewModel @Inject constructor(
         eyesonMeeting?.setVideoEnabled(mute)
     }
 
+    fun sendMessage(message: String) {
+        eyesonMeeting?.sendChatMessage(message)
+    }
+
     private fun connect(accessKey: String, local: VideoSink?, remote: VideoSink?) {
         viewModelScope.launch {
             eyesonMeeting = EyesonMeeting(

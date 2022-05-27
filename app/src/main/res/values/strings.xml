@@ -10,4 +10,7 @@
     <string name="home_screen_room_invite">Join my meeting room: %s</string>
     <!--CALLS_SCREEN-->
     <string name="calls_screen_notice_text">Room is loading. Wait a little bit</string>
+    <!--CHAT_SCREEN-->
+    <string name="chat_screen_message_input_field_hint">Send message!</string>
+    <string name="chat_screen_chat_header">Chat</string>
 </resources>
