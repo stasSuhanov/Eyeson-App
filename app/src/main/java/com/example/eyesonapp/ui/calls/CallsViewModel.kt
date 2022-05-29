@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.eyesonapp.AppDestination
 import com.example.eyesonapp.AppNavigator
+import com.example.eyesonapp.ui.calls.chat.Message
 import com.eyeson.sdk.EyesonMeeting
 import com.eyeson.sdk.events.EyesonEventListener
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CallsViewModel @Inject constructor(
     application: Application,
+    val chatMessage: MutableLiveData<Message>,
     val meetingStateLiveData: MutableLiveData<MeetingState>,
     private val appNavigator: AppNavigator,
     private val eyesonEventListener: EyesonEventListener,
@@ -61,7 +63,9 @@ class CallsViewModel @Inject constructor(
     }
 
     fun sendMessage(message: String) {
-        eyesonMeeting?.sendChatMessage(message)
+        viewModelScope.launch {
+            eyesonMeeting?.sendChatMessage(message)
+        }
     }
 
     private fun connect(accessKey: String, local: VideoSink?, remote: VideoSink?) {
