@@ -41,6 +41,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/end_call_button" />
 
+    <ImageButton
+        android:id="@+id/open_chat_button"
+        style="@style/CallButtonStyle"
+        android:layout_marginBottom="@dimen/layout_margin_20"
+        android:src="@drawable/ic_chat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/mute_microphone_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <org.webrtc.SurfaceViewRenderer
         android:id="@+id/local_video"
         android:layout_width="100dp"
@@ -68,15 +77,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progress_bar" />
-
-    <ImageButton
-        android:id="@+id/open_chat_button"
-        style="@style/CallButtonStyle"
-        android:layout_marginBottom="@dimen/layout_margin_20"
-        android:src="@drawable/ic_chat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/mute_microphone_button"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/place_holder"
