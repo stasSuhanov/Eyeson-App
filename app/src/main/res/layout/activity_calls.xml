@@ -16,27 +16,29 @@
     <ImageButton
         android:id="@+id/mute_microphone_button"
         style="@style/CallButtonStyle"
-        android:layout_margin="@dimen/layout_margin_20"
+        android:layout_marginBottom="@dimen/layout_margin_20"
         android:src="@drawable/ic_microphone_on"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/end_call_button" />
+        app:layout_constraintEnd_toStartOf="@id/end_call_button"
+        app:layout_constraintStart_toEndOf="@id/open_chat_button" />
 
     <ImageButton
         android:id="@+id/end_call_button"
         style="@style/CallButtonStyle"
-        android:layout_margin="@dimen/layout_margin_20"
+        android:layout_marginBottom="@dimen/layout_margin_20"
         android:background="@drawable/circular_red_button"
         android:src="@drawable/ic_call_end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/camera_button"
+        app:layout_constraintStart_toEndOf="@id/mute_microphone_button" />
 
     <ImageButton
         android:id="@+id/camera_button"
         style="@style/CallButtonStyle"
-        android:layout_margin="@dimen/layout_margin_20"
+        android:layout_marginBottom="@dimen/layout_margin_20"
         android:src="@drawable/ic_video_camera_on"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/end_call_button" />
 
     <org.webrtc.SurfaceViewRenderer
@@ -70,18 +72,20 @@
     <ImageButton
         android:id="@+id/open_chat_button"
         style="@style/CallButtonStyle"
-        android:layout_margin="@dimen/layout_margin_20"
+        android:layout_marginBottom="@dimen/layout_margin_20"
         android:src="@drawable/ic_chat"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/mute_microphone_button" />
+        app:layout_constraintEnd_toStartOf="@id/mute_microphone_button"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/place_holder"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/joining_call_group"
