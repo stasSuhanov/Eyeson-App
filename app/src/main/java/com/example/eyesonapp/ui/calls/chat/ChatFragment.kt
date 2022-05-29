@@ -1,9 +1,11 @@
 package com.example.eyesonapp.ui.calls.chat
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.eyesonapp.databinding.FragmentChatBinding
@@ -29,10 +31,23 @@ class ChatFragment : Fragment() {
 
     private fun setClickListeners() {
         binding.sendMessageButton.setOnClickListener { sendMessage() }
+        binding.backButton.setOnClickListener {
+            closeChat()
+        }
     }
 
     private fun sendMessage() {
         viewModel.sendMessage(binding.messageInputField.text.toString())
+        hideKeyboard()
+    }
+
+    private fun hideKeyboard() {
+        val imm = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
+    private fun closeChat() {
+        activity?.supportFragmentManager?.beginTransaction()?.detach(this)?.commit()
     }
 
     private fun observeViewModel() {
