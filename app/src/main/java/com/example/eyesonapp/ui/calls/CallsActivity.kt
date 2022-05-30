@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.eyesonapp.ARG_ROOM_ACCESS_KEY
 import com.example.eyesonapp.R
 import com.example.eyesonapp.databinding.ActivityCallsBinding
@@ -48,6 +49,22 @@ class CallsActivity : AppCompatActivity() {
     private fun setClickListeners() {
         binding.endCallButton.setOnClickListener { disconnect() }
         binding.openChatButton.setOnClickListener { showChat(true) }
+        binding.changeAspectRatio.setOnClickListener { switchAspectRation() }
+    }
+
+    private fun switchAspectRation() {
+        binding.remoteVideo.apply {
+            val currentLayoutParams = (layoutParams as? ConstraintLayout.LayoutParams) ?: return@apply
+            currentLayoutParams.dimensionRatio = if (currentLayoutParams.dimensionRatio == null) {
+                binding.changeAspectRatio.setText(R.string.calls_screen_change_aspect_ration_auto)
+                "4:3"
+            } else {
+                binding.changeAspectRatio.setText(R.string.calls_screen_change_aspect_ration)
+                null
+            }
+            layoutParams = currentLayoutParams
+            requestLayout()
+        }
     }
 
     private fun attachChatFragment() {
