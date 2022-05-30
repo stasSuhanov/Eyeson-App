@@ -17,7 +17,7 @@ class ChatFragment : Fragment() {
 
     private val viewModel: CallsViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChatBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,9 +31,7 @@ class ChatFragment : Fragment() {
 
     private fun setClickListeners() {
         binding.sendMessageButton.setOnClickListener { sendMessage() }
-        binding.backButton.setOnClickListener {
-            closeChat()
-        }
+        binding.backButton.setOnClickListener { closeChat() }
     }
 
     private fun sendMessage() {
