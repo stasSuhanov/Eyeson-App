@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.eyesonapp.ARG_ROOM_ACCESS_KEY
 import com.example.eyesonapp.R
 import com.example.eyesonapp.databinding.ActivityCallsBinding
+import com.example.eyesonapp.ui.calls.chat.ChatFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.webrtc.RendererCommon
 import org.webrtc.SurfaceViewRenderer
@@ -27,6 +28,16 @@ class CallsActivity : AppCompatActivity() {
         connectToRoom()
         setClickListeners()
         observeViewModel()
+        attachChatFragment()
+    }
+
+    override fun onBackPressed() {
+        if (getChatFragmentIfAttached()?.isVisible == true) {
+            showChat(false)
+        } else {
+            super.onBackPressed()
+            disconnect()
+        }
     }
 
     override fun onDestroy() {
@@ -36,6 +47,27 @@ class CallsActivity : AppCompatActivity() {
 
     private fun setClickListeners() {
         binding.endCallButton.setOnClickListener { disconnect() }
+        binding.openChatButton.setOnClickListener { showChat(true) }
+    }
+
+    private fun attachChatFragment() {
+        if (getChatFragmentIfAttached() != null) return
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.chat_fragment_container, ChatFragment(), ChatFragment::class.simpleName)
+            .commitNow()
+        showChat(false)
+    }
+
+    private fun showChat(show: Boolean) {
+        getChatFragmentIfAttached()?.let {
+            supportFragmentManager.beginTransaction()
+                .apply { if (show) show(it) else hide(it) }
+                .commit()
+        }
+    }
+
+    private fun getChatFragmentIfAttached(): ChatFragment? {
+        return supportFragmentManager.findFragmentByTag(ChatFragment::class.simpleName) as? ChatFragment
     }
 
     private fun requestCallPermissions() {
