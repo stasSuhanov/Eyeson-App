@@ -26,13 +26,14 @@
         android:text="@string/chat_screen_chat_header"
         app:layout_constraintBottom_toTopOf="@id/chat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/back_button" />
+        app:layout_constraintStart_toEndOf="@id/back_button"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/chat"
-        android:layout_margin="@dimen/layout_margin_20"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/layout_margin_20"
         app:layout_constraintBottom_toTopOf="@+id/message_input_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
