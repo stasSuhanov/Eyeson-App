@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?defaultWindowBackground"
     tools:context=".ui.calls.chat.ChatFragment">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/back_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="@dimen/layout_margin_20"
-        android:background="@drawable/circular_button"
+        android:padding="4dp"
+        android:background="?selectableItemBackgroundBorderless"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/chat_header"
@@ -24,19 +26,17 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/chat_screen_chat_header"
-        app:layout_constraintBottom_toTopOf="@id/chat"
+        app:layout_constraintBottom_toBottomOf="@id/back_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/back_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/back_button" />
 
-    <TextView
-        android:id="@+id/chat"
-        android:layout_width="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/message_recycler_view"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/layout_margin_20"
         app:layout_constraintBottom_toTopOf="@+id/message_input_field"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/back_button" />
 
     <EditText
@@ -46,9 +46,11 @@
         android:layout_marginStart="@dimen/layout_margin_20"
         android:layout_marginBottom="@dimen/layout_margin_20"
         android:hint="@string/chat_screen_message_input_field_hint"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_message_button"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:importantForAutofill="no" />
 
     <ImageButton
         android:id="@+id/send_message_button"
@@ -59,5 +61,6 @@
         android:src="@drawable/ic_send_message"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/message_input_field" />
+        app:layout_constraintStart_toEndOf="@+id/message_input_field"
+        tools:ignore="ContentDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,12 +11,21 @@
         <item name="fontFamily">@font/rubik_medium</item>
     </style>
 
+    <style name="TextLight">
+        <item name="android:fontFamily">@font/rubik_light</item>
+        <item name="fontFamily">@font/rubik_light</item>
+    </style>
+
     <style name="TextRegular.BlackLight">
         <item name="android:textColor">?defaultTextColor</item>
     </style>
 
     <style name="TextMedium.BlackLight">
         <item name="android:textColor">?defaultTextColor</item>
+    </style>
+
+    <style name="TextLight.Gray">
+        <item name="android:textColor">@android:color/darker_gray</item>
     </style>
 
     <style name="TextMedium.Blue">
@@ -29,6 +38,14 @@
 
     <style name="TextRegular.BlackLight.Medium">
         <item name="android:textSize">@dimen/text_size_20</item>
+    </style>
+
+    <style name="TextRegular.BlackLight.Small">
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="TextLight.Gray.ExtraSmall">
+        <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
     <style name="TextMedium.Blue.Small">

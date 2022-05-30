@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.eyesonapp.databinding.FragmentChatBinding
 import com.example.eyesonapp.ui.calls.CallsViewModel
 
@@ -17,6 +18,8 @@ class ChatFragment : Fragment() {
 
     private val viewModel: CallsViewModel by activityViewModels()
 
+    private val adapter: MessageAdapter by lazy { MessageAdapter() }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChatBinding.inflate(inflater, container, false)
         return binding.root
@@ -25,17 +28,28 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecyclerView()
         setClickListeners()
         observeViewModel()
     }
 
+    private fun initRecyclerView() {
+        binding.messageRecyclerView.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, true)
+            adapter = this@ChatFragment.adapter
+        }
+    }
+
     private fun setClickListeners() {
         binding.sendMessageButton.setOnClickListener { sendMessage() }
-        binding.backButton.setOnClickListener { closeChat() }
+        binding.backButton.setOnClickListener { hide() }
     }
 
     private fun sendMessage() {
-        viewModel.sendMessage(binding.messageInputField.text.toString())
+        val text = binding.messageInputField.text.toString()
+        if (text.isEmpty()) return
+        viewModel.sendMessage(text)
+        binding.messageInputField.setText("")
         hideKeyboard()
     }
 
@@ -44,23 +58,13 @@ class ChatFragment : Fragment() {
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
-    private fun closeChat() {
-        activity?.supportFragmentManager?.beginTransaction()?.detach(this)?.commit()
-    }
-
     private fun observeViewModel() {
         viewModel.chatMessage.observe(viewLifecycleOwner) { message ->
-            displayMessage(message.userName, message.message)
+            adapter.showItems(listOf(message))
         }
     }
 
-    private fun displayMessage(userName: String, message: String) {
-        binding.chat.append("\n")
-        binding.chat.append("$userName: $message")
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = ChatFragment()
+    private fun hide() {
+        activity?.supportFragmentManager?.beginTransaction()?.hide(this)?.commit()
     }
 }

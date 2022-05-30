@@ -2,10 +2,14 @@ package com.example.eyesonapp.ui.calls
 
 import androidx.lifecycle.MutableLiveData
 import com.example.eyesonapp.ui.calls.chat.Message
+import com.example.eyesonapp.utils.formatData
 import com.eyeson.sdk.events.CallRejectionReason
 import com.eyeson.sdk.events.CallTerminationReason
 import com.eyeson.sdk.events.EyesonEventListener
 import com.eyeson.sdk.model.local.api.UserInfo
+import com.eyeson.sdk.model.local.meeting.BroadcastUpdate
+import com.eyeson.sdk.model.local.meeting.Recording
+import com.eyeson.sdk.model.local.meeting.SnapshotUpdate
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,16 +30,33 @@ class CallsModule {
     @ActivityRetainedScoped
     @Provides
     fun provideChatMessage(): MutableLiveData<Message> {
-        return MutableLiveData(Message("", ""))
+        return MutableLiveData<Message>()
+    }
+
+    @ActivityRetainedScoped
+    @Provides
+    fun provideCurrentUserInfoLiveData(): MutableLiveData<UserInfo> {
+        return MutableLiveData<UserInfo>()
     }
 
     @ActivityRetainedScoped
     @Provides
     fun provideEyesonEventListener(
         meetingStateLiveData: MutableLiveData<MeetingState>,
-        chatMessage: MutableLiveData<Message>
+        chatMessageLiveData: MutableLiveData<Message>,
+        currentUserInfoLiveData: MutableLiveData<UserInfo>,
     ): EyesonEventListener {
         return object : EyesonEventListener() {
+
+            override fun onMeetingJoining(
+                name: String, startedAt: Date, user: UserInfo, locked: Boolean, guestToken: String,
+                guestLink: String, activeRecording: Recording?, activeBroadcasts: BroadcastUpdate?,
+                snapshots: SnapshotUpdate?
+            ) {
+                super.onMeetingJoining(name, startedAt, user, locked, guestToken, guestLink,
+                    activeRecording, activeBroadcasts, snapshots)
+                currentUserInfoLiveData.postValue(user)
+            }
 
             override fun onMeetingJoined() {
                 super.onMeetingJoined()
@@ -54,7 +75,9 @@ class CallsModule {
 
             override fun onChatMessageReceived(user: UserInfo, message: String, timestamp: Date) {
                 super.onChatMessageReceived(user, message, timestamp)
-                chatMessage.postValue(Message(user.name, message))
+                val isMine = user.id == currentUserInfoLiveData.value?.id
+                val formattedData = formatData(timestamp)
+                chatMessageLiveData.postValue(Message(user.name, message, formattedData,isMine))
             }
         }
     }

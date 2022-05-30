@@ -28,6 +28,7 @@ class CallsActivity : AppCompatActivity() {
         connectToRoom()
         setClickListeners()
         observeViewModel()
+        attachChatFragment()
     }
 
     override fun onBackPressed() {
@@ -42,13 +43,27 @@ class CallsActivity : AppCompatActivity() {
 
     private fun setClickListeners() {
         binding.endCallButton.setOnClickListener { disconnect() }
-        binding.openChatButton.setOnClickListener { openChat() }
+        binding.openChatButton.setOnClickListener { showChat(true) }
     }
 
-    private fun openChat() {
+    private fun attachChatFragment() {
+        if (getChatFragmentIfAttached() != null) return
         supportFragmentManager.beginTransaction()
-            .replace(R.id.place_holder, ChatFragment.newInstance())
-            .commit()
+            .replace(R.id.chat_fragment_container, ChatFragment(), ChatFragment::class.simpleName)
+            .commitNow()
+        showChat(false)
+    }
+
+    private fun showChat(show: Boolean) {
+        getChatFragmentIfAttached()?.let {
+            supportFragmentManager.beginTransaction()
+                .apply { if (show) show(it) else hide(it) }
+                .commit()
+        }
+    }
+
+    private fun getChatFragmentIfAttached(): ChatFragment? {
+        return supportFragmentManager.findFragmentByTag(ChatFragment::class.simpleName) as? ChatFragment
     }
 
     private fun requestCallPermissions() {

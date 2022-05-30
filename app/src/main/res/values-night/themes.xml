@@ -12,12 +12,13 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/blackLight</item>
 
-        <item name="android:statusBarColor">@color/blackLight</item>
-        <item name="android:windowBackground">@color/blackLight</item>
-        <item name="android:navigationBarColor">@color/blackLight</item>
+        <item name="android:statusBarColor">?defaultWindowBackground</item>
+        <item name="android:windowBackground">?defaultWindowBackground</item>
+        <item name="android:navigationBarColor">?defaultWindowBackground</item>
 
         <item name="android:windowLightNavigationBar">false</item>
 
         <item name="defaultTextColor">@color/teal_200</item>
+        <item name="defaultWindowBackground">@color/blackLight</item>
     </style>
 </resources>
