@@ -30,6 +30,11 @@ class CallsActivity : AppCompatActivity() {
         observeViewModel()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        disconnect()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         clearTargets()
