@@ -64,14 +64,16 @@
         app:layout_constraintTop_toTopOf="@id/end_call_button"
         tools:ignore="ContentDescription" />
 
-    <Button
+    <TextView
         android:id="@+id/change_aspect_ratio"
-        style="@style/TextMedium.ButtonStyle"
         android:layout_width="46dp"
         android:layout_height="46dp"
+        style="@style/TextRegular.BlackLight.Small"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_12"
         android:layout_marginStart="@dimen/layout_margin_20"
         android:background="@drawable/circular_button"
-        android:padding="0dp"
+        android:backgroundTint="@android:color/darker_gray"
         android:text="@string/calls_screen_change_aspect_ration"
         app:layout_constraintBottom_toBottomOf="@id/end_call_button"
         app:layout_constraintStart_toStartOf="parent"
