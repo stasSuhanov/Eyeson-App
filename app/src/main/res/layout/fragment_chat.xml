@@ -42,7 +42,11 @@
         android:id="@+id/message_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/layout_margin_20"
+        android:layout_marginTop="@dimen/layout_margin_20"
+        android:layout_marginStart="@dimen/layout_margin_20"
+        android:layout_marginEnd="@dimen/layout_margin_20"
+        android:paddingBottom="@dimen/layout_margin_20"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toTopOf="@+id/message_input_layout"
         app:layout_constraintTop_toBottomOf="@+id/back_button" />
 

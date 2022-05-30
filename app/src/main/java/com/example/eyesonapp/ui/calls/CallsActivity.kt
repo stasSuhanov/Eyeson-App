@@ -95,8 +95,8 @@ class CallsActivity : AppCompatActivity() {
                     bindVideoViews()
                     viewModel.setTargets(binding.localVideo, binding.remoteVideo)
                 }
-                MeetingState.TERMINATED -> {
-                    finish()
+                is MeetingState.TERMINATED -> {
+                    viewModel.onMeetingTerminated(state.reason)
                 }
             }
         }

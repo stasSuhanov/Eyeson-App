@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.eyesonapp.AppDestination
 import com.example.eyesonapp.AppNavigator
+import com.example.eyesonapp.R
 import com.example.eyesonapp.ui.calls.chat.Message
 import com.eyeson.sdk.EyesonMeeting
+import com.eyeson.sdk.events.CallTerminationReason
 import com.eyeson.sdk.events.EyesonEventListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -39,6 +41,8 @@ class CallsViewModel @Inject constructor(
         local: VideoSink?,
         remote: VideoSink?
     ) {
+        if (eyesonMeeting != null) return
+
         when {
             !roomAccessKey.isNullOrBlank() -> {
                 connect(roomAccessKey, local, remote)
@@ -113,9 +117,20 @@ class CallsViewModel @Inject constructor(
         }
     }
 
+    fun onMeetingTerminated(reason: CallTerminationReason) {
+        if (reason == CallTerminationReason.OK) {
+            appNavigator.navigate(AppDestination.FinishCurrentActivity)
+        } else {
+            appNavigator.navigate(AppDestination.ShowErrorMessageAndFinishFlow(
+                title = R.string.calls_screen_error_connection_terminated_title,
+                message = R.string.calls_screen_error_connection_terminated_message,
+            ))
+        }
+    }
+
     fun disconnect() {
         eyesonMeeting?.leave()
-        meetingStateLiveData.postValue(MeetingState.TERMINATED)
+        meetingStateLiveData.postValue(MeetingState.TERMINATED(reason = CallTerminationReason.OK))
     }
 
     fun getEglContext(): EglBase.Context? {
@@ -133,8 +148,10 @@ class CallsViewModel @Inject constructor(
     }
 }
 
-enum class MeetingState {
-    CREATED, JOINED, TERMINATED
+sealed class MeetingState {
+    object CREATED: MeetingState()
+    object JOINED: MeetingState()
+    data class TERMINATED(val reason: CallTerminationReason): MeetingState()
 }
 
 const val DEFAULT_GUEST_NAME = "GUEST"

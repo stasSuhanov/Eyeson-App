@@ -65,12 +65,12 @@ class CallsModule {
 
             override fun onMeetingJoinFailed(callRejectionReason: CallRejectionReason) {
                 super.onMeetingJoinFailed(callRejectionReason)
-                meetingStateLiveData.postValue(MeetingState.TERMINATED)
+                meetingStateLiveData.postValue(MeetingState.TERMINATED(CallTerminationReason.ERROR))
             }
 
             override fun onMeetingTerminated(callTerminationReason: CallTerminationReason) {
                 super.onMeetingTerminated(callTerminationReason)
-                meetingStateLiveData.postValue(MeetingState.TERMINATED)
+                meetingStateLiveData.postValue(MeetingState.TERMINATED(callTerminationReason))
             }
 
             override fun onChatMessageReceived(user: UserInfo, message: String, timestamp: Date) {
