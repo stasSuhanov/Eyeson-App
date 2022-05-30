@@ -32,8 +32,12 @@ class CallsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        disconnect()
+        if (getChatFragmentIfAttached()?.isVisible == true) {
+            showChat(false)
+        } else {
+            super.onBackPressed()
+            disconnect()
+        }
     }
 
     override fun onDestroy() {

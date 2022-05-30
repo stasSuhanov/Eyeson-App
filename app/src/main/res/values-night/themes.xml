@@ -17,8 +17,10 @@
         <item name="android:navigationBarColor">?defaultWindowBackground</item>
 
         <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:windowLightStatusBar">false</item>
 
         <item name="defaultTextColor">@color/teal_200</item>
         <item name="defaultWindowBackground">@color/blackLight</item>
+        <item name="defaultSeparatorColor">#222222</item>
     </style>
 </resources>

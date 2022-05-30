@@ -2,4 +2,5 @@
 <resources>
     <attr name="defaultTextColor" format="reference|color" />
     <attr name="defaultWindowBackground" format="reference|color" />
+    <attr name="defaultSeparatorColor" format="reference|color" />
 </resources>

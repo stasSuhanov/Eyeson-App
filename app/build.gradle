@@ -35,7 +35,7 @@ android {
             dimension "server"
             buildConfigField "String", "EYESON_BASE_URL", "\"https://api.eyeson.team\""
             buildConfigField "String", "EYESON_DEEP_LINK_URL", "\"https://app.eyeson.team\""
-            buildConfigField "String", "EYESON_API_KEY", "\"sJrzTXWYn4HhehFY4LHqBzYI2lo9esPTtniViv93Xc\""
+            buildConfigField "String", "EYESON_API_KEY", "\"FVMUHmSQmHS8CiYZRQTp9QQRfYrLUR0aC3eafgmpRQ\""
         }
     }
 

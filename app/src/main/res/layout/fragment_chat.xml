@@ -31,26 +31,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/back_button" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        tools:ignore="PxUsage"
+        android:background="?defaultSeparatorColor"
+        app:layout_constraintBottom_toTopOf="@id/message_recycler_view"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/message_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/layout_margin_20"
-        app:layout_constraintBottom_toTopOf="@+id/message_input_field"
+        app:layout_constraintBottom_toTopOf="@+id/message_input_layout"
         app:layout_constraintTop_toBottomOf="@+id/back_button" />
 
-    <EditText
-        android:id="@+id/message_input_field"
-        android:layout_width="0dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/message_input_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_margin_20"
-        android:layout_marginBottom="@dimen/layout_margin_20"
         android:background="@null"
-        android:drawableEnd="@drawable/ic_send_message"
-        android:hint="@string/chat_screen_message_input_field_hint"
-        android:inputType="textImeMultiLine"
-        android:imeOptions="actionDone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:hintEnabled="false"
+        app:endIconDrawable="@drawable/ic_send_message"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/message_input_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textImeMultiLine"
+            android:imeOptions="actionDone"
+            android:paddingVertical="14dp"
+            android:hint="@string/chat_screen_message_input_field_hint"
+            android:background="@null" />
+    </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
