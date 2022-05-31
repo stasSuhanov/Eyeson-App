@@ -74,6 +74,7 @@
         android:layout_marginStart="@dimen/layout_margin_20"
         android:background="@drawable/circular_button"
         android:backgroundTint="@android:color/darker_gray"
+        android:textColor="@color/white"
         android:text="@string/calls_screen_change_aspect_ration"
         app:layout_constraintBottom_toBottomOf="@id/end_call_button"
         app:layout_constraintStart_toStartOf="parent"

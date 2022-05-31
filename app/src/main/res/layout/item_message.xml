@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    tools:ignore="RtlSymmetry"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <TextView
@@ -11,10 +12,13 @@
         style="@style/TextRegular.BlackLight.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_margin_20"
+        android:layout_marginTop="@dimen/layout_margin_20"
+        android:layout_marginStart="@dimen/layout_margin_20"
+        android:paddingEnd="@dimen/layout_margin_20"
         app:layout_constraintWidth_max="200dp"
+        android:gravity="start"
+        android:textAlignment="viewStart"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:lines="3"
@@ -28,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_margin_10"
         android:layout_marginBottom="@dimen/layout_margin_20"
-        android:layout_marginStart="@dimen/layout_margin_20"
+        android:layout_marginStart="@dimen/layout_margin_10"
+        android:paddingEnd="@dimen/layout_margin_20"
         android:textColor="@android:color/white"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,16 +41,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/message"
         tools:text="@tools:sample/date/hhmm" />
-
-    <TextView
-        android:id="@+id/username"
-        style="@style/TextLight.Gray.ExtraSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_margin_10"
-        android:textColor="@android:color/white"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/message"
-        app:layout_constraintTop_toBottomOf="@id/message"
-        tools:text="@tools:sample/full_names" />
 </merge>

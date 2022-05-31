@@ -1,6 +1,10 @@
 package com.example.eyesonapp.ui.calls.chat
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.text.SpannableStringBuilder
+import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,8 +64,10 @@ open class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     }
 
     fun bind(message: Message) {
-        messageBinding.message.text = message.message
-        messageBinding.username.text = message.userName
+        val messageText = SpannableStringBuilder(message.userName).apply {
+            setSpan(ForegroundColorSpan(Color.LTGRAY), 0, this.length, SPAN_EXCLUSIVE_EXCLUSIVE)
+        }.append("\n").append(message.message)
+        messageBinding.message.text = messageText
         messageBinding.date.text = message.formattedDate
     }
 }

@@ -18,9 +18,8 @@ class HomeViewModel @Inject constructor(
     private val appNavigator: AppNavigator,
 ) : ViewModel() {
 
-    val state: MutableLiveData<State> by lazy {
-        MutableLiveData<State>(State.Initial)
-    }
+    private val _state: MutableLiveData<State> = MutableLiveData(State.Initial)
+    val state: LiveData<State> get() = _state
 
     // Key to manage created room as host
     private var roomAccessKey: String? = null
@@ -30,12 +29,12 @@ class HomeViewModel @Inject constructor(
 
     fun createMeetingRoom() {
         viewModelScope.launch(Dispatchers.IO) {
-            state.postValue(State.Progress)
+            _state.postValue(State.Progress)
             var roomResponse: RoomResponse? = null
             try {
                 roomResponse = api.getLinks(DEFAULT_USERNAME)
             } catch (e: Exception) {
-                state.postValue(State.Initial)
+                _state.postValue(State.Initial)
                 withContext(Dispatchers.Main) {
                     appNavigator.navigate(AppDestination.DefaultError)
                 }
@@ -43,7 +42,7 @@ class HomeViewModel @Inject constructor(
             roomAccessKey = roomResponse?.accessKey
             roomResponse?.room?.guestToken?.let {
                 guestInviteLink = "https://app.eyeson.team/?guest=$it"
-                state.postValue(State.RoomCreated(guestInviteLink ?: ""))
+                _state.postValue(State.RoomCreated(guestInviteLink ?: ""))
             }
         }
     }
@@ -57,7 +56,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onBackPressed() {
-        state.value = State.Initial
+        _state.value = State.Initial
     }
 }
 
@@ -67,4 +66,4 @@ sealed class State {
     data class RoomCreated(val guestJoinLink: String): State()
 }
 
-private const val DEFAULT_USERNAME = "DEFAULT_USERNAME"
+private const val DEFAULT_USERNAME = "Host"

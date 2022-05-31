@@ -169,4 +169,4 @@ sealed class MeetingState {
     data class TERMINATED(val reason: CallTerminationReason): MeetingState()
 }
 
-const val DEFAULT_GUEST_NAME = "GUEST"
+const val DEFAULT_GUEST_NAME = "Guest"
