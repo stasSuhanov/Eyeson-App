@@ -29,11 +29,15 @@ class CallsViewModel @Inject constructor(
 
     private var eyesonMeeting: EyesonMeeting? = null
 
-    private val _isMicrophoneEnable: MutableLiveData<Boolean> = MutableLiveData(true)
-    val isMicrophoneEnable: LiveData<Boolean> get() = _isMicrophoneEnable
-
-    private val _isCameraEnable: MutableLiveData<Boolean> = MutableLiveData(true)
-    val isCameraEnable: LiveData<Boolean> get() = _isCameraEnable
+    private val defaultUiState by lazy {
+        UiState(
+            audioMuted = false,
+            videoDisabled = false,
+            defaultAspectRatio = true
+        )
+    }
+    private val _uiState: MutableLiveData<UiState> = MutableLiveData(defaultUiState)
+    val uiState: LiveData<UiState> get() = _uiState
 
     fun connectToRoom(
         roomAccessKey: String?,
@@ -57,13 +61,18 @@ class CallsViewModel @Inject constructor(
     }
 
     fun muteMicrophone(mute: Boolean) {
-        _isMicrophoneEnable.value = mute
-        eyesonMeeting?.setMicrophoneEnabled(mute)
+        _uiState.postValue(_uiState.value?.copy(audioMuted = mute) ?: defaultUiState)
+        eyesonMeeting?.setMicrophoneEnabled(!mute)
     }
 
     fun muteCamera(mute: Boolean) {
-        _isCameraEnable.value = mute
-        eyesonMeeting?.setVideoEnabled(mute)
+        _uiState.postValue(_uiState.value?.copy(videoDisabled = mute) ?: defaultUiState)
+        eyesonMeeting?.setVideoEnabled(!mute)
+    }
+
+    fun switchAspectRatio(defaultAspectRatio: Boolean) {
+        _uiState.postValue(_uiState.value
+            ?.copy(defaultAspectRatio = defaultAspectRatio) ?: defaultUiState)
     }
 
     fun sendMessage(message: String) {
@@ -147,6 +156,12 @@ class CallsViewModel @Inject constructor(
         eyesonMeeting?.setRemoteVideoTarget(remote)
     }
 }
+
+data class UiState(
+    val audioMuted: Boolean,
+    val videoDisabled: Boolean,
+    val defaultAspectRatio: Boolean,
+)
 
 sealed class MeetingState {
     object CREATED: MeetingState()

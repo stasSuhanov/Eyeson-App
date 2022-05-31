@@ -49,19 +49,12 @@ class CallsActivity : AppCompatActivity() {
     private fun setClickListeners() {
         binding.endCallButton.setOnClickListener { disconnect() }
         binding.openChatButton.setOnClickListener { showChat(true) }
-        binding.changeAspectRatio.setOnClickListener { switchAspectRation() }
     }
 
-    private fun switchAspectRation() {
+    private fun switchAspectRation(default: Boolean) {
         binding.remoteVideo.apply {
             val currentLayoutParams = (layoutParams as? ConstraintLayout.LayoutParams) ?: return@apply
-            currentLayoutParams.dimensionRatio = if (currentLayoutParams.dimensionRatio == null) {
-                binding.changeAspectRatio.setText(R.string.calls_screen_change_aspect_ration_auto)
-                "4:3"
-            } else {
-                binding.changeAspectRatio.setText(R.string.calls_screen_change_aspect_ration)
-                null
-            }
+            currentLayoutParams.dimensionRatio = if (!default) "4:3" else null
             layoutParams = currentLayoutParams
             requestLayout()
         }
@@ -118,22 +111,34 @@ class CallsActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.isMicrophoneEnable.observe(this) { isMicrophoneEnable ->
+        viewModel.uiState.observe(this) { state ->
+            // state.audioMuted
+            binding.muteMicrophoneButton.setImageResource(
+                if (state.audioMuted) R.drawable.ic_microphone_off else R.drawable.ic_microphone_on
+            )
             binding.muteMicrophoneButton.setOnClickListener {
-                binding.muteMicrophoneButton.setImageResource(
-                    if (isMicrophoneEnable) R.drawable.ic_microphone_off else R.drawable.ic_microphone_on
-                )
-                viewModel.muteMicrophone(!isMicrophoneEnable)
+                viewModel.muteMicrophone(!state.audioMuted)
             }
-        }
 
-        viewModel.isCameraEnable.observe(this) { isCameraEnable ->
+            // state.videoDisabled
+            binding.cameraButton.setImageResource(
+                if (state.videoDisabled) R.drawable.ic_video_camera_off else R.drawable.ic_video_camera_on
+            )
             binding.cameraButton.setOnClickListener {
-                binding.cameraButton.setImageResource(
-                    if (isCameraEnable) R.drawable.ic_video_camera_off else R.drawable.ic_video_camera_on
-                )
-                viewModel.muteCamera(!isCameraEnable)
+                viewModel.muteCamera(!state.videoDisabled)
             }
+
+            // state.defaultAspectRatio
+            binding.changeAspectRatio.setText(
+                if (state.defaultAspectRatio) {
+                    R.string.calls_screen_change_aspect_ration
+                } else {
+                    R.string.calls_screen_change_aspect_ration_auto
+                })
+            binding.changeAspectRatio.setOnClickListener {
+                viewModel.switchAspectRatio(!state.defaultAspectRatio)
+            }
+            switchAspectRation(state.defaultAspectRatio)
         }
     }
 
