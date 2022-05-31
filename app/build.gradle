@@ -8,6 +8,16 @@ plugins {
 android {
     compileSdk 32
 
+    signingConfigs {
+        releaseDefault {
+            storeFile file("../keystore.jks")
+            storePassword 'qwerty1234!'
+            keyAlias 'key0'
+            keyPassword 'qwerty1234!'
+        }
+    }
+
+
     defaultConfig {
         applicationId "com.example.eyesonapp"
         minSdk 23
@@ -36,6 +46,7 @@ android {
             buildConfigField "String", "EYESON_BASE_URL", "\"https://api.eyeson.team\""
             buildConfigField "String", "EYESON_DEEP_LINK_URL", "\"https://app.eyeson.team\""
             buildConfigField "String", "EYESON_API_KEY", "\"FVMUHmSQmHS8CiYZRQTp9QQRfYrLUR0aC3eafgmpRQ\""
+            signingConfig signingConfigs.releaseDefault
         }
     }
 
