@@ -21,8 +21,9 @@ class AppNavigatorImpl(private val appActivityManager: AppActivityManager) : App
         val activity = appActivityManager.getCurrentActivity() ?: return
         when (appDestination) {
             is AppDestination.JoinRoomAsHost -> {
-                activity.startActivity(Intent(activity, CallsActivity::class.java)
-                    .putExtra(ARG_ROOM_ACCESS_KEY, appDestination.accessKey))
+                activity.startActivity(
+                    Intent(activity, CallsActivity::class.java).putExtra(ARG_ROOM_ACCESS_KEY, appDestination.accessKey)
+                )
             }
             is AppDestination.InviteLink -> {
                 sendInviteLink(activity, appDestination.url)
@@ -68,6 +69,7 @@ sealed class AppDestination {
         @StringRes val title: Int,
         @StringRes val message: Int,
     ) : AppDestination()
+
     object DefaultError : AppDestination()
 }
 

@@ -21,10 +21,11 @@ class NetworkModule {
     fun provideInterceptor(): Interceptor {
         return Interceptor { chain ->
             chain.run {
-                proceed(request()
-                    .newBuilder()
-                    .addHeader(AUTHORIZATION_HEADER, BuildConfig.EYESON_API_KEY)
-                    .build()
+                proceed(
+                    request()
+                        .newBuilder()
+                        .addHeader(AUTHORIZATION_HEADER, BuildConfig.EYESON_API_KEY)
+                        .build()
                 )
             }
         }

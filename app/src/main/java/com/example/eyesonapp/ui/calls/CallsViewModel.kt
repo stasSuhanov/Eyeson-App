@@ -71,8 +71,9 @@ class CallsViewModel @Inject constructor(
     }
 
     fun switchAspectRatio(defaultAspectRatio: Boolean) {
-        _uiState.postValue(_uiState.value
-            ?.copy(defaultAspectRatio = defaultAspectRatio) ?: defaultUiState)
+        _uiState.postValue(
+            _uiState.value?.copy(defaultAspectRatio = defaultAspectRatio) ?: defaultUiState
+        )
     }
 
     fun sendMessage(message: String) {
@@ -130,10 +131,12 @@ class CallsViewModel @Inject constructor(
         if (reason == CallTerminationReason.OK) {
             appNavigator.navigate(AppDestination.FinishCurrentActivity)
         } else {
-            appNavigator.navigate(AppDestination.ShowErrorMessageAndFinishFlow(
-                title = R.string.calls_screen_error_connection_terminated_title,
-                message = R.string.calls_screen_error_connection_terminated_message,
-            ))
+            appNavigator.navigate(
+                AppDestination.ShowErrorMessageAndFinishFlow(
+                    title = R.string.calls_screen_error_connection_terminated_title,
+                    message = R.string.calls_screen_error_connection_terminated_message,
+                )
+            )
         }
     }
 
@@ -164,9 +167,9 @@ data class UiState(
 )
 
 sealed class MeetingState {
-    object CREATED: MeetingState()
-    object JOINED: MeetingState()
-    data class TERMINATED(val reason: CallTerminationReason): MeetingState()
+    object CREATED : MeetingState()
+    object JOINED : MeetingState()
+    data class TERMINATED(val reason: CallTerminationReason) : MeetingState()
 }
 
 const val DEFAULT_GUEST_NAME = "Guest"

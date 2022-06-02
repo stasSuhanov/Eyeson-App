@@ -134,7 +134,8 @@ class CallsActivity : AppCompatActivity() {
                     R.string.calls_screen_change_aspect_ration
                 } else {
                     R.string.calls_screen_change_aspect_ration_auto
-                })
+                }
+            )
             binding.changeAspectRatio.setOnClickListener {
                 viewModel.switchAspectRatio(!state.defaultAspectRatio)
             }

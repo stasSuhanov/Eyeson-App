@@ -17,9 +17,7 @@ import com.example.eyesonapp.ui.calls.CallsViewModel
 class ChatFragment : Fragment() {
 
     private lateinit var binding: FragmentChatBinding
-
     private val viewModel: CallsViewModel by activityViewModels()
-
     private val adapter: MessageAdapter by lazy { MessageAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -47,9 +45,7 @@ class ChatFragment : Fragment() {
         binding.messageInputField.addTextChangedListener {
             binding.messageInputLayout.isEndIconVisible = !it.isNullOrBlank()
         }
-        binding.messageInputLayout.setEndIconOnClickListener {
-            sendMessage()
-        }
+        binding.messageInputLayout.setEndIconOnClickListener { sendMessage() }
         binding.messageInputField.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 sendMessage()

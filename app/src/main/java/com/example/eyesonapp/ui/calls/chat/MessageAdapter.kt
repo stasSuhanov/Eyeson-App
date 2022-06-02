@@ -22,12 +22,10 @@ class MessageAdapter : RecyclerView.Adapter<MessageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         return if (viewType == TYPE_INCOMING_MESSAGE) {
-            val binding = ItemMessageIncomingBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false)
+            val binding = ItemMessageIncomingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             MessageIncomingViewHolder(binding)
         } else {
-            val binding = ItemMessageOutgoingBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false)
+            val binding = ItemMessageOutgoingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             MessageOutgoingViewHolder(binding)
         }
     }

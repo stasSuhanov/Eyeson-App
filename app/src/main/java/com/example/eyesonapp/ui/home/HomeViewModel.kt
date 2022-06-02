@@ -1,6 +1,9 @@
 package com.example.eyesonapp.ui.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.eyesonapp.AppDestination
 import com.example.eyesonapp.AppNavigator
 import com.example.eyesonapp.data.api.EyesonApi
@@ -9,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,9 +63,9 @@ class HomeViewModel @Inject constructor(
 }
 
 sealed class State {
-    object Initial: State()
-    object Progress: State()
-    data class RoomCreated(val guestJoinLink: String): State()
+    object Initial : State()
+    object Progress : State()
+    data class RoomCreated(val guestJoinLink: String) : State()
 }
 
 private const val DEFAULT_USERNAME = "Host"

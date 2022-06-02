@@ -10,11 +10,11 @@
 
     <TextView
         android:id="@+id/title"
+        style="@style/TextRegular.BlackLight.Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextRegular.BlackLight.Header"
-        android:gravity="center"
         android:layout_marginBottom="@dimen/layout_margin_20"
+        android:gravity="center"
         android:text="@string/home_screen_description"
         app:layout_constraintBottom_toTopOf="@id/description"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,8 +25,8 @@
         style="@style/TextRegular.BlackLight.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginBottom="@dimen/layout_margin_20"
+        android:gravity="center"
         android:text="@string/home_screen_room_description"
         app:layout_constraintBottom_toTopOf="@id/room_link_description"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,9 +57,9 @@
 
     <Button
         android:id="@+id/next_button"
+        style="@style/TextMedium.ButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextMedium.ButtonStyle"
         android:text="@string/home_screen_create_room"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,29 +70,29 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/next_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintBottom_toTopOf="@id/next_button"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/initial_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="description"/>
+        app:constraint_referenced_ids="description" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/progress_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:constraint_referenced_ids="progress_bar"/>
+        app:constraint_referenced_ids="progress_bar" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/room_created_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:constraint_referenced_ids="room_link_description,room_link"/>
+        app:constraint_referenced_ids="room_link_description,room_link" />
 </androidx.constraintlayout.widget.ConstraintLayout>
